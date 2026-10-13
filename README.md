@@ -58,3 +58,8 @@ Supabase Auth → URL Configuration：
 ## 驗證
 
 已完成正式建置、型別檢查、桌面／手機排版，以及在 Supabase 專案中使用三個虛構身分的交易內權限測試；測試資料全部 rollback，不留在正式資料庫。Supabase 安全 advisor 沒有提出問題。
+
+
+## 視覺改版
+
+首頁山景、水平導覽與手機底部導航、技巧路線及四類技巧圖形。使用 Barlow Condensed（SIL OFL）與原創靜態山景。網站沒有接入 AI。設計來源、檢視結果與素材提示見 [DESIGN.md](./DESIGN.md)。
