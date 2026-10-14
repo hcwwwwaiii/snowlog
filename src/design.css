@@ -1,5 +1,5 @@
-@font-face{font-family:Barlow;src:url('../public/fonts/barlow-condensed-bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
-@font-face{font-family:Barlow;src:url('../public/fonts/barlow-condensed-bold-italic.ttf') format('truetype');font-style:italic;font-weight:700;font-display:swap}
+@font-face{font-family:Barlow;src:url('/fonts/barlow-condensed-bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:Barlow;src:url('/fonts/barlow-condensed-bold-italic.ttf') format('truetype');font-style:italic;font-weight:700;font-display:swap}
 :root{--ink:#142e42;--muted:#516878;--pine:#2459c4;--pine-hover:#164496;--ice:#e7eef4;--line:#d7e1e7;--paper:#f2f5f6;--white:#fff;font-family:'Segoe UI','Microsoft JhengHei','PingFang TC',sans-serif;background:var(--paper);color:var(--ink)}
 body{font-size:15px;line-height:1.65}
 button,a,input,textarea,select{transition:none}

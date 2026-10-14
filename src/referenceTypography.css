@@ -1,0 +1,9 @@
+@font-face{font-family:'Snowlog Rounded';src:url('/fonts/snowlog-rounded-400.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Snowlog Rounded';src:url('/fonts/snowlog-rounded-700.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:Spinnaker;src:url('/fonts/spinnaker-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+:root{font-family:Spinnaker,'Snowlog Rounded','PingFang TC','Microsoft JhengHei',sans-serif}
+h1,h2,h3{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif;font-weight:700;letter-spacing:.02em}
+.hero h1,.resort-map-intro h1{font-family:'Songti TC','Songti SC',STSong,PMingLiU,'新細明體',MingLiU,'Noto Serif CJK TC','Noto Serif TC',Georgia,serif;font-weight:500;letter-spacing:.04em}
+.stats-strip strong,.countdown strong,.skill-summary strong,.journal-date strong{font-family:Spinnaker,'Snowlog Rounded',sans-serif;font-style:normal}
+.site-header nav .nav-item{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif}
+.region-map-svg text{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif}
