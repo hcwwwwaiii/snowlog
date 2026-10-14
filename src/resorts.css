@@ -17,3 +17,18 @@
 @media(max-width:760px){.resort-map-intro{flex-direction:column;align-items:flex-start;gap:16px;padding-bottom:4px}.resort-map-intro h1{font-size:35px;margin:14px 0}.resort-map-intro p{font-size:12px}.resort-map-intro .secondary{padding:11px 13px;font-size:11px}.region-map-panel{grid-template-columns:minmax(0,1fr);gap:0;padding:10px 15px 20px;border-radius:8px}.region-map-svg{max-height:440px}.region-map-visual{margin:0 -8px}.region-map-heading h2{font-size:22px}.region-map-heading>p{font-size:11px;margin-bottom:7px}.region-map-list{gap:10px;padding-top:8px}.map-region-row{padding:15px}.map-region-row h3{font-size:18px}.map-region-row p{font-size:11px}.map-data-note{font-size:9px!important}.resort-region-heading{padding-bottom:23px}.resort-region-heading h1{font-size:35px}.resort-region-heading p{font-size:12px}.resort-region-heading>svg{width:38px}.resort-quick-search{margin-top:22px}.resort-quick-search input{font-size:16px}.resort-detail-breadcrumb{font-size:10px;gap:7px}.resort-source-panel h2{font-size:22px}}
 @media(max-width:360px){.resort-map-intro h1{font-size:29px}.region-map-panel{padding-left:12px;padding-right:12px}.map-region-row{padding:13px}.map-region-row-title{gap:10px}.region-map-heading h2{font-size:20px}}
 @media(max-width:760px){.map-pin-label-bg{width:128px;height:56px}.map-pin-name{font-size:26px;transform:translateY(5px)}.map-pin-count{font-size:16px;transform:translateY(6px)}.map-position-note{font-size:13px}}
+
+/* Verified location photographs; illustration fallback is explicitly labelled. */
+.resort-photo{position:relative;margin:0;height:240px;overflow:hidden;background:#e7eef4}
+.resort-photo img{width:100%;height:100%;display:block;object-fit:cover}
+.resort-photo figcaption{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;gap:12px;color:#fff;background:linear-gradient(transparent,#102c48db);padding:35px 20px 15px;font-size:12px;text-shadow:0 1px 3px #102c48}
+.resort-visual-fallback{position:relative}
+.resort-photo-status{position:absolute;left:20px;bottom:17px;font-size:11px;color:#516878}
+.resort-detail-hero>.resort-photo,.resort-detail-hero>.resort-visual-fallback{height:100%;min-height:340px}
+.resort-detail-hero>.resort-visual-fallback .snow-scene{height:100%}
+.resort-photo-credits{border-bottom:1px solid var(--line);padding:24px 0 30px}
+.resort-photo-credits h2{font-size:20px;margin-bottom:12px}
+.resort-photo-credits p{margin:8px 0;color:var(--muted);font-size:13px}
+.resort-photo-credits a{text-decoration:underline;text-underline-offset:3px}
+.resort-photo-credits small{display:block;color:var(--muted);font-size:11px;line-height:1.7;margin-top:12px}
+@media(max-width:760px){.resort-photo{height:215px}.resort-detail-hero>.resort-photo,.resort-detail-hero>.resort-visual-fallback{min-height:0;height:260px}.resort-photo figcaption{padding:30px 17px 12px}.resort-photo-credits{padding:20px 0 25px}}

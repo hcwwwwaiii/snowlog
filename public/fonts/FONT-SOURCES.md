@@ -8,3 +8,7 @@ The subset is renamed Snowlog Rounded to distinguish this modified font from the
 The homepage headline uses the same Songti/PMingLiU serif fallback stack as SKI-O; appearance depends on fonts installed on the device. The Snowlog brand retains its existing Barlow lettering.
 
 Reference CSS inspected on 2026-10-14. Files are hosted by Snowlog; visitors do not need to request fonts from SKI-O or a third-party font CDN.
+
+## Snowlog Numerals Light
+
+Derived from Archivo (Omnibus-Type), SIL OFL 1.1. Source: https://github.com/google/fonts/tree/main/ofl/archivo and https://github.com/Omnibus-Type/Archivo. Instantiated at weight 300, width 100, subset to digits 0–9 and renamed Snowlog Numerals. Original copyright retained; see Archivo-OFL.txt. Used as a digit-only first face so all counters, dates and other numbers keep a light stroke while Chinese and English text retain their own font. No user text was used.

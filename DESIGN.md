@@ -58,3 +58,7 @@ Klook 為外部參考入口，並非 Snowlog 預約系統。產品名稱與適�
 
 檢視桌面、390px、320px：目的地／地區／類型篩選、詳情返回、香港空白狀態、篩選面板焦點循環；本機模擬登入後帶入雪場，模擬行程儲存及編輯回讀。發現原有行程對話框在窄螢幕受固定寬度影響，修正寬度限制與單欄日期欄位。這些模擬資料沒有連接正式資料庫，也不會發布。
 
+
+## October 14 scheduled visual refresh
+
+Retain the chalk / navy / cobalt palette. The home cover now uses bold rounded Chinese with two deliberate lines, matching the familiar body while feeling more like a snowboard journal. Light Archivo digits replace heavy counters and also cover dates and progress through a digit-only font face. Sixteen original board, rider and route SVGs show technique-specific motion without adding animation; captions distinguish edges and turn shapes. Resort cards and details use verified historical Creative Commons photographs with attribution and licensing on the detail page; missing and failed photos have labelled illustration fallbacks. Check PHOTO-SOURCES.md for the exact location and license of each image.

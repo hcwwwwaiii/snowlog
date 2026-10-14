@@ -79,3 +79,7 @@ Supabase Auth → URL Configuration：
 地區定義在 `src/resortRegions.ts`，輪廓由 Natural Earth 公共領域資料簡化，標記為地區概略位置，不作導航。新增雪場需確認為戶外或室內真雪，再加上官方來源、核對日期及可用的 Klook 產品連結（如有）。`klook.note` 可記錄核對時暫停提供的票券，不能將外部連結當成即時庫存。詳情與行程草稿會顯示這些註記；沒有找到合適產品時省略 Klook 區塊。
 
 字體來源與子集規則在 `public/fonts/FONT-SOURCES.md`；字體檔不含個人資料，其他字元回退系統字體。雪場探索以獨立 JavaScript 檔按需要載入，首頁不用先下載地圖元件。
+
+### Scheduled visual refresh, 2026-10-14
+
+Home headline uses self-hosted rounded Chinese; light digit-only Archivo face covers counts, dates, countdowns and progress. Sixteen original technique-specific SVG illustrations have readable captions. Nine resorts have verified historical Creative Commons photographs, with credits, source and license links on details and in public/media/resorts/PHOTO-SOURCES.md. Shenzhen image shows the venue exterior; Guangzhou image shows the indoor slope. Zhuhai keeps a labelled illustration and official photo link until a reusable photograph is supplied. No photo is presented as live snow conditions. No database or authentication changes.

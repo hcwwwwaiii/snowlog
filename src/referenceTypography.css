@@ -1,9 +1,31 @@
 @font-face{font-family:'Snowlog Rounded';src:url('/fonts/snowlog-rounded-400.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:'Snowlog Rounded';src:url('/fonts/snowlog-rounded-700.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
 @font-face{font-family:Spinnaker;src:url('/fonts/spinnaker-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
-:root{font-family:Spinnaker,'Snowlog Rounded','PingFang TC','Microsoft JhengHei',sans-serif}
-h1,h2,h3{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif;font-weight:700;letter-spacing:.02em}
-.hero h1,.resort-map-intro h1{font-family:'Songti TC','Songti SC',STSong,PMingLiU,'新細明體',MingLiU,'Noto Serif CJK TC','Noto Serif TC',Georgia,serif;font-weight:500;letter-spacing:.04em}
-.stats-strip strong,.countdown strong,.skill-summary strong,.journal-date strong{font-family:Spinnaker,'Snowlog Rounded',sans-serif;font-style:normal}
-.site-header nav .nav-item{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif}
-.region-map-svg text{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif}
+/* A dedicated light digit face keeps dates, counts and headings consistent. */
+@font-face{font-family:'Snowlog Numerals';src:url('/fonts/snowlog-numerals-light.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0030-0039}
+:root{font-family:'Snowlog Numerals',Spinnaker,'Snowlog Rounded','PingFang TC','Microsoft JhengHei',sans-serif;font-variant-numeric:tabular-nums}
+h1,h2,h3,.site-header nav .nav-item,.region-map-svg text{font-family:'Snowlog Numerals','Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif}
+h1,h2,h3{font-weight:700;letter-spacing:.02em}
+.hero h1{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.23;text-shadow:0 2px 16px #0a23333b;max-width:100%}
+.hero h1>span{display:block;white-space:nowrap}
+.resort-map-intro h1{font-family:'Snowlog Rounded',Spinnaker,'PingFang TC','Microsoft JhengHei',sans-serif;font-weight:700;letter-spacing:-.025em}
+.stats-strip strong,.countdown strong,.skill-summary strong,.journal-date strong{font-family:'Snowlog Numerals',Spinnaker,'Snowlog Rounded',sans-serif;font-weight:300;font-style:normal;letter-spacing:-.025em}
+.stats-strip small{font-family:'Snowlog Rounded',sans-serif}
+.hero h1{font-size:clamp(38px,4.4vw,64px)}
+@media(max-width:960px){.hero h1{font-size:45px}}
+@media(max-width:760px){.hero h1{font-size:clamp(27px,7.7vw,42px)}}
+@media(max-width:430px){.hero h1{font-size:clamp(24px,7.65vw,32px);letter-spacing:-.045em}.stats-strip strong{font-size:35px}}
+/* Each technique has its own board / rider / route illustration. */
+.skill-symbol{height:auto;min-height:112px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;margin:12px 0 8px;color:#254c69}
+.skill-symbol svg{width:120px;height:80px;max-width:100%}
+.skill-symbol path,.skill-card .skill-symbol path{fill:none;stroke:currentColor;stroke-width:2.2}
+.skill-symbol .icon-board{fill:#eef4fa;stroke:#254c69}
+.skill-symbol .icon-helmet{fill:#254c69;stroke:#254c69}
+.skill-card .skill-symbol .icon-binding{stroke:#254c69;stroke-width:3}
+.skill-card .skill-symbol .icon-rider{stroke:#254c69;stroke-width:3}
+.skill-card .skill-symbol .icon-accent,.skill-card .skill-symbol .icon-track{stroke:#2459c4;stroke-width:2.4}
+.skill-symbol .icon-accent-fill{fill:#2459c4;stroke:none}
+.skill-card .skill-symbol .icon-terrain{stroke:#657c8b}
+.skill-card .skill-symbol .icon-guide{stroke:#91a6b5;stroke-dasharray:3 5;stroke-width:1.2}
+.skill-icon-hint{font-size:11px;line-height:1.5;color:#516878;letter-spacing:.02em}
+@media(max-width:760px){.skill-symbol{min-height:103px}.skill-symbol svg{width:110px;height:73px}.skill-icon-hint{font-size:10px}.skill-card{min-height:310px}}
