@@ -62,3 +62,7 @@ Klook 為外部參考入口，並非 Snowlog 預約系統。產品名稱與適�
 ## October 14 scheduled visual refresh
 
 Retain the chalk / navy / cobalt palette. The home cover now uses bold rounded Chinese with two deliberate lines, matching the familiar body while feeling more like a snowboard journal. Light Archivo digits replace heavy counters and also cover dates and progress through a digit-only font face. Sixteen original board, rider and route SVGs show technique-specific motion without adding animation; captions distinguish edges and turn shapes. Resort cards and details use verified historical Creative Commons photographs with attribution and licensing on the detail page; missing and failed photos have labelled illustration fallbacks. Check PHOTO-SOURCES.md for the exact location and license of each image.
+
+## Practice flow
+
+A compact three-card practice focus section precedes the full technique directory. Focus cards show the next step and last practice date, with a quick-record action. Dedicated technique pages retain the board/rider illustrations and combine chronological owned journals with explicit state updates. Historical baseline records are labelled. A short native-dialog journal form keeps technique fixed and places optional snow, media and sharing fields in native disclosure; no new animation treatment is added.

@@ -9,6 +9,7 @@ import "./styles.css";
 import "./design.css";
 import "./resorts.css";
 import "./referenceTypography.css";
+import "./practice.css";
 
 function friendly(message:string){
   if(message.includes("Invalid login credentials"))return "電郵或密碼不正確。";

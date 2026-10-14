@@ -19,5 +19,5 @@ export const skills = [
   {id:"park",name:"Park 基礎",group:3,description:"依課程內容記錄地形公園練習"},
 ];
 export type Row = Record<string, any>;
-export type Snapshot = {profile:Row; progress:Row[]; journals:Row[]; trips:Row[]; members:Row[]; sharedJournals:Row[]; resources:Row[]};
-export const blankData:Snapshot = {profile:{name:"",stance:"未確定",goal:""},progress:[],journals:[],trips:[],members:[],sharedJournals:[],resources:[]};
+export type Snapshot = {profile:Row; progress:Row[]; progressHistory?:Row[]; journals:Row[]; trips:Row[]; members:Row[]; sharedJournals:Row[]; resources:Row[]};
+export const blankData:Snapshot = {profile:{name:"",stance:"未確定",goal:""},progress:[],progressHistory:[],journals:[],trips:[],members:[],sharedJournals:[],resources:[]};
