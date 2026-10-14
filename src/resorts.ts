@@ -1,6 +1,7 @@
+import {japanResortAdditions} from "./japanResortAdditions";
 export type Resort = {
   id: string; name: string; localName: string; country: '日本' | '中國內地'; region: string;
-  type: '戶外雪場' | '室內真雪'; summary: string; address: string; access: string;
+  type: '戶外雪場' | '室內真雪'; kind?: '滑雪區域'; summary: string; address: string; access: string;
   highlights: string[]; planning: string; url: string; linkLabel: string;
   sources: { title: string; url: string }[]; verified: string;
   klook?: {url:string;label:string;verified:string;note?:string};
@@ -93,7 +94,7 @@ export const resorts: Resort[] = [
     address: '新潟縣南魚沼郡湯澤町湯澤茅平1039-2',
     access: '冬季可乘上越新幹線到 GALA 湯澤站，或在越後湯澤站轉接駁。先核對列車及雪場當日是否營運。',
     highlights: ['新幹線車站相連', '中央與北區雪道', '湯澤區域接駁'],
-    planning: '若安排東京即日來回，先記下去程、回程與最後纜車時間；列車班次不會由 Snowlog 自動預訂。',
+    planning: '官方已公告 2026–27 雪季南區暫停開放。安排東京即日來回時，先核對中央／北區路線、列車及最後纜車時間。',
     url: 'https://gala.co.jp/winter/', linkLabel: '雪場官方網站',
     sources: [{title:'GALA 官方冬季網站',url:'https://gala.co.jp/winter/'},{title:'官方雪道介紹',url:'https://gala.co.jp/winter/gelande/'},{title:'新潟官方觀光：位置與交通',url:'https://niigata-kankou.or.jp/experience/10692'}], verified: '2026-10-14',
   },
@@ -118,8 +119,11 @@ export const resorts: Resort[] = [
     url: 'https://www.appi.co.jp/experience/white-season/', linkLabel: '雪場官方網站',
     sources: [{title:'安比高原官方冬季資訊',url:'https://www.appi.co.jp/experience/white-season/'},{title:'官方冬季交通與地址',url:'https://www.appi.co.jp/access-winter/'}], verified: '2026-10-14',
   },
+  ...japanResortAdditions,
 ];
 
 export function resortTripDraft(resort: Resort) {
   return {title: `${resort.name}滑雪之旅`, resort: resort.name, itinerary: `${resort.linkLabel}：${resort.url}\n${resort.klook?`Klook（${resort.klook.label}）：${resort.klook.url}\n${resort.klook.note?resort.klook.note+'\n':''}`:''}\n每日安排：\n`, todos: []};
 }
+
+

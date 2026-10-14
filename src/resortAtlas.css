@@ -1,0 +1,37 @@
+/* A regional atlas, with snow-country silhouettes as the primary visual. */
+.resort-atlas{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:22px;padding:24px;background:#e9f0f3;border:1px solid #d2dfe6;border-radius:10px;align-items:stretch}
+.atlas-visual{display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;min-width:0;padding:3px 0 0}
+.atlas-map-heading{display:flex;align-items:center;gap:9px;color:#516f83;font-size:12px;padding:0 12px 12px}
+.resort-atlas .atlas-svg{width:100%;max-height:none;overflow:visible;flex:1;display:block}
+.atlas-base-land path{fill:#d5e1e7;stroke:#f4f8fa;stroke-width:.9;stroke-linejoin:round}
+.atlas-zone{cursor:pointer;outline:none}
+.atlas-zone-shape{fill:var(--region-color);stroke:#f4f8fa;stroke-width:1;stroke-linejoin:round}
+.atlas-zone.highlighted .atlas-zone-shape,.atlas-zone:hover .atlas-zone-shape{fill:#7ba4bf}
+.atlas-leader{fill:none;stroke:#8ca5b5;stroke-width:1.2;stroke-linecap:round}
+.atlas-pin-ring{fill:#fff;opacity:.4}.atlas-pin{fill:#264e66;stroke:#fff;stroke-width:2}
+.atlas-pin-mountain{fill:none;stroke:#fff;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.atlas-label-bg{fill:#f9fcfd;stroke:transparent;stroke-width:1.4}
+.atlas-label-name{fill:#142e42;font-size:24px;font-weight:700}.atlas-label-count{fill:#577385;font-size:17px}
+.atlas-zone.highlighted .atlas-label-bg,.atlas-zone:hover .atlas-label-bg{fill:#fff;stroke:#7699af}
+.atlas-zone.highlighted .atlas-pin,.atlas-zone:hover .atlas-pin{fill:#2459c4}
+.atlas-zone:focus-visible .atlas-label-bg{stroke:#df6b3f;stroke-width:3}
+.atlas-ocean-text{font-size:13px;fill:#88a3b3;letter-spacing:4px}
+.atlas-map-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;color:#607e91;font-size:10px;padding:12px;border-top:1px solid #d2dfe6}
+.atlas-map-hint{display:flex;align-items:center;gap:7px}.atlas-map-hint:before{content:'';display:block;width:6px;height:6px;background:#264e66;border-radius:50%}
+.resort-atlas .atlas-region-list{background:#f9fcfd;border-radius:7px;padding:26px 24px 18px;justify-content:flex-start;gap:0;align-self:stretch}
+.atlas-list-heading{padding-bottom:20px}.atlas-list-heading>p{font-size:11px;color:#607c8d;margin:0 0 8px}.atlas-list-heading h2{font-size:25px;line-height:1.4;margin:0 0 9px}.atlas-list-heading>span{font-size:12px;color:#607c8d}
+.atlas-region-list>nav{display:grid}
+.resort-atlas .atlas-region-row{border:0;border-top:1px solid #dce6ec;border-radius:0;background:transparent;padding:15px 0;gap:12px;min-height:75px;min-width:0}
+.atlas-region-swatch{display:block;width:9px;height:30px;flex-shrink:0;border-radius:3px;background:var(--region-color)}
+.atlas-region-row>div{flex:1;min-width:0}.resort-atlas .atlas-region-row h3{font-size:19px}
+.resort-atlas .atlas-region-row .map-region-row-title{gap:12px;flex-wrap:wrap}.resort-atlas .atlas-region-row .map-region-row-title span{font-size:11px}
+.resort-atlas .atlas-region-row p{font-size:11px;line-height:1.65;color:#607989;overflow-wrap:anywhere;margin:5px 0 0}
+.resort-atlas .atlas-region-row.highlighted,.resort-atlas .atlas-region-row:hover{background:#eef5f8}
+.atlas-region-row:focus-visible{outline:2px solid #df6b3f;outline-offset:3px}.atlas-region-list .map-data-note{margin:15px 0 0;font-size:10px!important}
+.map-data-note a{color:#607c8d;text-decoration:underline;text-underline-offset:3px}
+.bay-atlas .atlas-svg{max-height:500px}.bay-atlas .atlas-region-list{justify-content:center}
+@media(max-width:960px){.resort-atlas{gap:18px;padding:20px 16px}.resort-atlas .atlas-region-list{padding:22px 18px 16px}.atlas-list-heading h2{font-size:23px}.resort-atlas .atlas-region-row{min-height:74px;padding-block:14px}.resort-atlas .atlas-region-row h3{font-size:18px}}
+@media(max-width:760px){.resort-atlas{grid-template-columns:minmax(0,1fr);padding:14px 10px;gap:16px}.resort-atlas .atlas-visual{margin:0;padding:0}.atlas-map-heading{padding:6px 9px 0;font-size:11px}.resort-atlas .atlas-svg{max-height:none;flex:none}.atlas-label-name{font-size:32px}.atlas-label-count{font-size:23px}.atlas-label-bg{fill:#f9fcfd}.atlas-ocean-text{font-size:17px;letter-spacing:2px}.atlas-map-foot{font-size:10px;padding:10px 8px;gap:8px}.resort-atlas .atlas-region-list{padding:22px 18px 16px}.atlas-list-heading h2{font-size:24px}.resort-atlas .atlas-region-row{min-height:77px;padding:15px 0;gap:10px}.resort-atlas .atlas-region-row h3{font-size:19px}.resort-atlas .atlas-region-row p{font-size:11px}.atlas-region-list .map-data-note{font-size:10px!important}.bay-atlas .atlas-svg{max-height:none}.atlas-pin{stroke-width:2.5}.atlas-pin-mountain{stroke-width:1.7}}
+@media(max-width:360px){.resort-atlas{padding:12px 8px}.resort-atlas .atlas-region-list{padding:20px 14px 15px}.atlas-list-heading h2{font-size:22px}.resort-atlas .atlas-region-row .map-region-row-title{gap:8px}.resort-atlas .atlas-region-row .map-region-row-title span{font-size:10px}}
+
+@media(max-width:760px){.resort-map-intro h1{text-wrap:balance}}

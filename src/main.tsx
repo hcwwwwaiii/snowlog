@@ -8,6 +8,7 @@ import { blankData, type Row, type Snapshot } from "./catalog";
 import "./styles.css";
 import "./design.css";
 import "./resorts.css";
+import "./resortAtlas.css";
 import "./referenceTypography.css";
 import "./practice.css";
 
