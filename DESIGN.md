@@ -66,3 +66,7 @@ Retain the chalk / navy / cobalt palette. The home cover now uses bold rounded C
 ## Practice flow
 
 A compact three-card practice focus section precedes the full technique directory. Focus cards show the next step and last practice date, with a quick-record action. Dedicated technique pages retain the board/rider illustrations and combine chronological owned journals with explicit state updates. Historical baseline records are labelled. A short native-dialog journal form keeps technique fixed and places optional snow, media and sharing fields in native disclosure; no new animation treatment is added.
+
+## Concrete personal assessment
+
+Technique details show observed abilities, independent direction ratings, four environment fields and retained blockers. The native update dialog uses three checkboxes and explicit labels; irrelevant directions are omitted. Resolved blockers remain readable with a green label and notes. Timeline snapshots place the full historical assessment inside a native disclosure to keep the chronology short. Assessment never computes the overall skill status. The cobalt/navy/rounded type palette and light numerals remain unchanged. No new custom motion. Technique and assessment views load on demand.

@@ -23,7 +23,7 @@ export const resorts: Resort[] = [
   {
     id: 'shenzhen-huafa', name: '深圳前海冰雪世界', localName: '華發冰雪熱雪奇蹟', country: '中國內地', region: '深圳', type: '室內真雪',
     klook:{url:'https://www.klook.com/zh-HK/activity/171780-shenzhen-huafa-snow-bonski/',label:'前海冰雪世界票券',verified:'2026-10-14'},
-    summary: '把雪旅放進週末。寶安的室內造雪雪場，設有不同難度的滑雪道。',
+    summary: '把滑雪之旅放進週末。寶安的室內造雪雪場，設有不同難度的滑雪道。',
     address: '深圳市寶安區沙井南環路，前海冰雪世界',
     access: '先安排香港往深圳的過關與市內交通，再用地圖確認場館入口。跨境接駁的班次與上車點請向營運方查詢。',
     highlights: ['室內造雪環境', '五條專業雪道', '不同難度雪道與地形公園'],
@@ -34,7 +34,7 @@ export const resorts: Resort[] = [
   {
     id: 'guangzhou-bonski', name: '廣州熱雪奇蹟', localName: '广州热雪奇迹', country: '中國內地', region: '廣州', type: '室內真雪',
     klook:{url:'https://www.klook.com/zh-HK/activity/23416-sunac-snow-park-admission-ticket-guang-zhou/',label:'廣州熱雪奇蹟票券',verified:'2026-10-14'},
-    summary: '花都的室內雪場，讓兩次日本雪旅之間，也能安排自己的滑行日。',
+    summary: '花都的室內雪場，讓兩次日本滑雪之旅之間，也能安排自己的滑行日。',
     address: '廣州市花都區鳳凰北路63號，廣州融創茂內',
     access: '先安排香港往廣州／花都的交通，再確認融創茂及雪場入口。將來回交通與入場時段一起排進行程。',
     highlights: ['室內造雪環境', '五條不同難度雪道', '滑雪區與娛雪區分開'],
@@ -67,7 +67,7 @@ export const resorts: Resort[] = [
   {
     id: 'tsugaike', name: '栂池高原', localName: 'つがいけマウンテンリゾート', country: '日本', region: '長野・白馬', type: '戶外雪場',
     klook:{url:'https://www.klook.com/zh-HK/activity/134928-tsugaike-kogen-ski-resort-lift-ticket-gear-clothing-rental/',label:'栂池纜車票／裝備',verified:'2026-10-14'},
-    summary: '以栂池高原作為雪旅據點，和同伴一起安排白馬山區的滑行日。',
+    summary: '以栂池高原作為滑雪之旅據點，和同伴一起安排白馬山區的滑行日。',
     address: '長野縣北安曇郡小谷村栂池高原',
     access: '查看當季前往栂池高原的巴士或自駕路線。官方常見問題列有 VILLAGE TSUGAIKE 前的接駁站資訊。',
     highlights: ['白馬山區雪場', '栂池高原住宿區', '冬季區域接駁'],
@@ -78,7 +78,7 @@ export const resorts: Resort[] = [
   {
     id: 'nozawa-onsen', name: '野澤溫泉', localName: '野沢温泉スキー場', country: '日本', region: '長野・野澤', type: '戶外雪場',
     klook:{url:'https://www.klook.com/zh-HK/activity/136277-nozawa-onsen-ski-resort-lift-ticket/',label:'野澤溫泉纜車票',verified:'2026-10-14'},
-    summary: '雪道上的白天，溫泉村裡的晚上。把滑行與休息一起排進雪旅。',
+    summary: '雪道上的白天，溫泉村裡的晚上。把滑行與休息一起排進滑雪之旅。',
     address: '長野縣下高井郡野澤溫泉村',
     access: '可經北陸新幹線飯山站，轉乘往野澤溫泉的巴士。村內往雪場接駁另有當季安排。',
     highlights: ['長坂纜車', '溫泉村住宿', '冬季雪道與公園'],
@@ -89,7 +89,7 @@ export const resorts: Resort[] = [
   {
     id: 'gala-yuzawa', name: 'GALA 湯澤', localName: 'ガーラ湯沢', country: '日本', region: '新潟・湯澤', type: '戶外雪場',
     klook:{url:'https://www.klook.com/zh-HK/activity/99585-everyone-beginners-experts-adults-children-enjoy-playing-snow/',label:'GALA 湯澤纜車票／裝備',verified:'2026-10-14'},
-    summary: '新幹線與雪旅接在一起。GALA 湯澤站連接山麓設施，方便安排滑行日。',
+    summary: '新幹線與滑雪之旅接在一起。GALA 湯澤站連接山麓設施，方便安排滑行日。',
     address: '新潟縣南魚沼郡湯澤町湯澤茅平1039-2',
     access: '冬季可乘上越新幹線到 GALA 湯澤站，或在越後湯澤站轉接駁。先核對列車及雪場當日是否營運。',
     highlights: ['新幹線車站相連', '中央與北區雪道', '湯澤區域接駁'],
@@ -100,7 +100,7 @@ export const resorts: Resort[] = [
   {
     id: 'naeba', name: '苗場', localName: '苗場スキー場', country: '日本', region: '新潟・湯澤', type: '戶外雪場',
     klook:{url:'https://www.klook.com/zh-HK/activity/190711-from-shinjuku-naeba-ski-day-trip-w-6-hour-lift-pass-optional-gear/',label:'苗場雪票＋新宿往返巴士',verified:'2026-10-14'},
-    summary: '以山麓酒店作為據點，安排苗場與同伴的多日雪旅。',
+    summary: '以山麓酒店作為據點，安排苗場與同伴的多日滑雪之旅。',
     address: '新潟縣南魚沼郡湯澤町三國202',
     access: '先安排前往越後湯澤，再核對到苗場的巴士或酒店接駁。自駕請查看官方冬季道路資訊。',
     highlights: ['山麓酒店', '多種難度雪道', 'Dragondola 區域連接'],
@@ -121,5 +121,5 @@ export const resorts: Resort[] = [
 ];
 
 export function resortTripDraft(resort: Resort) {
-  return {title: `${resort.name}雪旅`, resort: resort.name, itinerary: `${resort.linkLabel}：${resort.url}\n${resort.klook?`Klook（${resort.klook.label}）：${resort.klook.url}\n${resort.klook.note?resort.klook.note+'\n':''}`:''}\n每日安排：\n`, todos: []};
+  return {title: `${resort.name}滑雪之旅`, resort: resort.name, itinerary: `${resort.linkLabel}：${resort.url}\n${resort.klook?`Klook（${resort.klook.label}）：${resort.klook.url}\n${resort.klook.note?resort.klook.note+'\n':''}`:''}\n每日安排：\n`, todos: []};
 }
