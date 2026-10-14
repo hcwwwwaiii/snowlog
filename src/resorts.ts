@@ -77,7 +77,7 @@ export const resorts: Resort[] = [
   },
   {
     id: 'nozawa-onsen', name: '野澤溫泉', localName: '野沢温泉スキー場', country: '日本', region: '長野・野澤', type: '戶外雪場',
-    klook:{url:'https://www.klook.com/zh-HK/activity/136277-nozawa-onsen-ski-resort-lift-ticket/',label:'野澤溫泉纜車票',note:'核對時此票券頁顯示暫停提供；請查看當季方案。',verified:'2026-10-14'},
+    klook:{url:'https://www.klook.com/zh-HK/activity/136277-nozawa-onsen-ski-resort-lift-ticket/',label:'野澤溫泉纜車票',verified:'2026-10-14'},
     summary: '雪道上的白天，溫泉村裡的晚上。把滑行與休息一起排進雪旅。',
     address: '長野縣下高井郡野澤溫泉村',
     access: '可經北陸新幹線飯山站，轉乘往野澤溫泉的巴士。村內往雪場接駁另有當季安排。',
@@ -88,7 +88,7 @@ export const resorts: Resort[] = [
   },
   {
     id: 'gala-yuzawa', name: 'GALA 湯澤', localName: 'ガーラ湯沢', country: '日本', region: '新潟・湯澤', type: '戶外雪場',
-    klook:{url:'https://www.klook.com/zh-HK/activity/99585-everyone-beginners-experts-adults-children-enjoy-playing-snow/',label:'GALA 湯澤纜車票／裝備',note:'核對時此票券頁顯示暫停提供；請查看當季方案。',verified:'2026-10-14'},
+    klook:{url:'https://www.klook.com/zh-HK/activity/99585-everyone-beginners-experts-adults-children-enjoy-playing-snow/',label:'GALA 湯澤纜車票／裝備',verified:'2026-10-14'},
     summary: '新幹線與雪旅接在一起。GALA 湯澤站連接山麓設施，方便安排滑行日。',
     address: '新潟縣南魚沼郡湯澤町湯澤茅平1039-2',
     access: '冬季可乘上越新幹線到 GALA 湯澤站，或在越後湯澤站轉接駁。先核對列車及雪場當日是否營運。',
