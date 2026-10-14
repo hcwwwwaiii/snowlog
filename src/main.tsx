@@ -7,6 +7,7 @@ import { trapDialogFocus } from "./dialogFocus";
 import { blankData, type Row, type Snapshot } from "./catalog";
 import "./styles.css";
 import "./design.css";
+import "./resorts.css";
 
 function friendly(message:string){
   if(message.includes("Invalid login credentials"))return "電郵或密碼不正確。";
