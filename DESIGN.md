@@ -74,3 +74,8 @@ Technique details show observed abilities, independent direction ratings, four e
 ## Regional atlas refresh, 2026-10-14
 
 SKI-O informs the detailed Japanese silhouette, direct region labels and linked destination rows. Snowlog uses original code and public-domain Natural Earth 1:10m prefecture boundaries, with a 0.45-unit simplification instead of the former coarse 1:110m coast. Seven destination groups use muted ice-blue, teal and sage fills; unlisted prefectures stay neutral. Dark mountain pins and off-coast labels identify regional destinations without covering the coastline. A single quiet white panel holds destination rows, instead of seven floating form-like cards. The current rounded Chinese and light numerals stay unchanged; coastline geometry is the focal point. No new custom motion. Bay-area geometry remains intact, with the same label/row design. Mobile stacks map and full-sized links. Only directory-covered regional groups are clickable.
+
+
+## 雪場實景與介紹
+
+28 個目的地各有介紹、滑行地形、特色與設施、主要據點及個人滑行日建議。實景照片是閱讀重點，桌面採照片與標題分欄，手機上下排列；文章以開放段落及簡明概覽呈現，來源及 Klook 留在獨立欄。27 個目的地有可重用實景，授權以原生展開區保留；珠海萬雪匯尚待可轉載相片，以明示示意與官方實景連結處理。無新動態效果，保留地圖、個人資料與行程權限。
