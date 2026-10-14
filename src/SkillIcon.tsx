@@ -23,10 +23,11 @@ export default function SkillIcon({id}:{id:string}){
   case 'short-turns':scene=<><path d="M60 8c24 0 24 13 0 13s-24 13 0 13 24 13 0 13-24 13 0 13 24 13 0 13" className="icon-track"/><path d="M30 8v65M90 8v65" className="icon-guide"/><Board x={64} y={38} angle={-35}/></>;break;
   case 'variable-snow':scene=<><path d="M17 57h37M19 63h34M65 59q7-15 14 0t14 0 12 0" className="icon-terrain"/><path d="M61 17v49" className="icon-guide"/><Board x={36} y={36} angle={-18}/><path d="M81 15v15m-7-11 14 8m0-8-14 8" className="icon-accent"/></>;break;
   case 'terrain':scene=<><path d="M9 67q16-25 31-7t29-5 40 9" className="icon-terrain"/><Rider x={62} y={34} angle={-8}/><path d="M97 25v22m-4-5 4 5 4-5M97 25l-4 5m4-5 4 5" className="icon-accent"/></>;break;
-  case 'ollie':scene=<><path d="M13 68h96" className="icon-terrain"/><Rider x={64} y={29} angle={-12}/><path d="M28 60q-7-15 3-27m-6 2 6-2 1 7M80 57l9 7M79 63l6 7" className="icon-accent"/></>;break;
+  case 'ollie':scene=<><path d="M13 68h96" className="icon-terrain"/><Rider x={64} y={35} angle={-12}/><path d="M28 60q-7-15 3-27m-6 2 6-2 1 7M80 57l9 7M79 63l6 7" className="icon-accent"/></>;break;
   case 'butter':scene=<><path d="M13 68h94" className="icon-terrain"/><Rider x={62} y={35} angle={-18}/><circle cx="86" cy="62" r="4" className="icon-accent-fill"/><path d="M26 52c-5-17 4-30 17-34m-4-3 4 3-2 6" className="icon-accent"/></>;break;
-  case 'park':scene=<><path d="M10 69h26l13-13h39v13h21M49 56v13M39 69h40" className="icon-terrain"/><Rider x={61} y={22} angle={-7}/><path d="M17 44q15-28 31-29m-7-2 7 2-4 5" className="icon-accent"/></>;break;
+  case 'park':scene=<><path d="M10 69h26l13-13h39v13h21M49 56v13M39 69h40" className="icon-terrain"/><Rider x={61} y={34} angle={-7}/><path d="M17 44q15-28 31-29m-7-2 7 2-4 5" className="icon-accent"/></>;break;
   default:scene=<Board x={60} y={40}/>;
  }
  return <div className="skill-symbol"><svg viewBox="0 0 120 80" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{scene}</svg><span className="skill-icon-hint">{hints[id]}</span></div>;
 }
+
