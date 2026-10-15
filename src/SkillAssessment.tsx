@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import {Check,Plus,Flag} from 'lucide-react';
+import {Check,Plus,Flag,Minus} from 'lucide-react';
 import {assessmentDefinitions,conditionFields,sideStatuses,readAssessment,type Assessment} from './assessmentCatalog';
 
-export function AssessmentEditor({skillId,value,onChange}:{skillId:string;value:Assessment;onChange:(v:Assessment)=>void}){
- const definition=assessmentDefinitions[skillId];const [newBlocker,setNewBlocker]=useState('');
+export function AssessmentEditor({skillId,value,onChange,initialBlocker=""}:{initialBlocker?:string;skillId:string;value:Assessment;onChange:(v:Assessment)=>void}){
+ const definition=assessmentDefinitions[skillId];const [newBlocker,setNewBlocker]=useState(initialBlocker);
  if(!definition)return null;
  const updateBlocker=(id:string,patch:Partial<Assessment['blockers'][number]>)=>onChange({...value,blockers:value.blockers.map(b=>b.id===id?{...b,...patch}:b)});
  function addBlocker(){const text=newBlocker.trim();if(!text||value.blockers.length>=30)return;onChange({...value,blockers:[...value.blockers,{id:crypto.randomUUID(),text,resolved:false,note:''}]});setNewBlocker('');}
@@ -16,12 +16,12 @@ export function AssessmentEditor({skillId,value,onChange}:{skillId:string;value:
 }
 
 const hkDate=(v:string)=>new Intl.DateTimeFormat('zh-HK',{timeZone:'Asia/Hong_Kong',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(v));
-export function AssessmentSummary({skillId,value,compact=false}:{skillId:string;value:unknown;compact?:boolean}){
+export function AssessmentSummary({skillId,value,compact=false,onEdit}:{onEdit?:()=>void;skillId:string;value:unknown;compact?:boolean}){
  const d=assessmentDefinitions[skillId];if(!d)return null;const a=readAssessment(value);
  const has=!!(a.checked.length||Object.values(a.sides).some(Boolean)||Object.values(a.conditions).some(Boolean)||a.blockers.length);
  if(compact&&!has)return null;
  return <div className={'assessment-summary'+(compact?' compact':'')}>
-  <section><h3>掌握項目 <span>{a.checked.length} / {d.checks.length}</span></h3><ul className="assessment-observations">{d.checks.map((text,i)=><li className={a.checked.includes(`c${i+1}`)?'checked':''} key={text}><span className="observation-mark" aria-hidden="true">{a.checked.includes(`c${i+1}`)?<Check size={13}/>:null}</span><span><span className="sr-only">{a.checked.includes(`c${i+1}`)?'已觀察到：':'未勾選：'}</span>{text}</span></li>)}</ul><small>自評參考；勾選項目不會自動改變技巧狀態。</small></section>
+  <section><h3>掌握項目 <span>{a.checked.length} / {d.checks.length}</span></h3>{onEdit&&<button className="text-button assessment-edit-action" onClick={onEdit}>編輯掌握項目與整體狀態</button>}<ul className="assessment-observations">{d.checks.map((text,i)=><li className={a.checked.includes(`c${i+1}`)?'checked':''} key={text}><span className="observation-mark" >{a.checked.includes(`c${i+1}`)?<><Check size={13}/>已觀察</>:<><Minus size={13}/>待觀察</>}</span><span>{text}</span></li>)}</ul><small>此處為已儲存的自評摘要。掌握項目及整體狀態請在編輯視窗更新。</small></section>
   {!!d.sides.length&&<section><h3>分邊／方向程度</h3><dl className="assessment-sides">{d.sides.map(s=><div key={s.id}><dt>{s.label}</dt><dd>{sideStatuses[a.sides[s.id]||0]}</dd></div>)}</dl></section>}
   <section><h3>成功條件</h3><dl className="assessment-conditions">{conditionFields.map(f=><div key={f.id}><dt>{f.label}</dt><dd>{a.conditions[f.id]||'未記錄'}</dd></div>)}</dl></section>
   <section><h3><Flag size={16}/>卡關與待改善 <span>{a.blockers.filter(b=>!b.resolved).length} 項待改善</span></h3>{a.blockers.length?<ul className="assessment-blockers">{a.blockers.map(b=><li key={b.id} className={b.resolved?'resolved':''}><div><strong>{b.text}</strong><span className={'badge '+(b.resolved?'green':'')}>{b.resolved?'已解決':'待改善'}</span></div>{b.note&&<p className="preserve">{b.note}</p>}{b.resolved_at&&<small>解決於 {hkDate(b.resolved_at)}</small>}</li>)}</ul>:<p className="muted small">尚未加入待改善事項。</p>}</section>
