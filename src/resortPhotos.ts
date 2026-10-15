@@ -1,5 +1,19 @@
 // Verified actual resort photographs; see public/media/resorts/PHOTO-SOURCES.md.
 export const resortPhotos:Record<string,{src:string;alt:string;caption:string;author:string;license:string;licenseUrl:string;source:string;width:number;height:number;date:string|null;changes:string;verified:string}> = {
+  "zhuhai-snow-haven": {
+    "src": "media/resorts/zhuhai-snow-haven.png",
+    "alt": "珠海萬雪匯室內真雪坡道，用戶提供相片",
+    "caption": "珠海萬雪匯室內坡道；用戶指定提供，拍攝日期未提供。",
+    "author": "用戶提供",
+    "license": "由用戶提供並指定用於 Snowlog",
+    "licenseUrl": "",
+    "source": "",
+    "width": 600,
+    "height": 450,
+    "date": null,
+    "changes": "使用提供的原檔；版面可能裁切",
+    "verified": "2026-10-15"
+},
   "niseko-grand-hirafu": {
     "src": "media/resorts/niseko-grand-hirafu.webp",
     "alt": "從 Grand Hirafu 雪道望向羊蹄山",

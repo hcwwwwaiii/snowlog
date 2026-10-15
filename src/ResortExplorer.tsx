@@ -21,7 +21,7 @@ function SnowScene({indoor,region}:{indoor:boolean;region:string}) {
 function ResortVisual({resort}:{resort:Resort}){
  const photo=resortPhotos[resort.id];const [failed,setFailed]=useState(false);
  if(!photo||failed)return <div className="resort-visual-fallback"><SnowScene indoor={resort.type==='室內真雪'} region={resort.region}/><span className="resort-photo-status">{failed?'照片暫未載入':'實景請見官方介紹'}</span></div>;
- return <figure className="resort-photo"><img src={import.meta.env.BASE_URL+photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" onError={()=>setFailed(true)}/><figcaption><span>{resort.region}</span><span>{resort.id==='biwako-valley'?'綠季實景':resort.id==='shenzhen-huafa'?'場館外觀':'歷史實景'}</span></figcaption></figure>;
+ return <figure className="resort-photo"><img src={import.meta.env.BASE_URL+photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" onError={()=>setFailed(true)}/><figcaption><span>{resort.region}</span><span>{resort.id==='zhuhai-snow-haven'?'用戶提供實景':resort.id==='biwako-valley'?'綠季實景':resort.id==='shenzhen-huafa'?'場館外觀':'歷史實景'}</span></figcaption></figure>;
 }
 
 export default function ResortExplorer({selectedId,onOpen,onPlan}:{selectedId:string|null;onOpen:(id:string|null)=>void;onPlan:(resort:Resort)=>void}) {

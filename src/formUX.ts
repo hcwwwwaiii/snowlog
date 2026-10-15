@@ -3,7 +3,8 @@ export async function boundedFetch(input:RequestInfo|URL,init?:RequestInit):Prom
  const controller=new AbortController();const upstream=init?.signal||(input instanceof Request?input.signal:undefined);
  const abort=()=>controller.abort(upstream?.reason);upstream?.addEventListener('abort',abort,{once:true});
  if(upstream?.aborted)abort();
- let timedOut=false;const timer=setTimeout(()=>{timedOut=true;controller.abort();},15000);
+ const requestUrl=String(input instanceof Request?input.url:input);const upload=requestUrl.includes('/storage/v1/object/snowlog-journal-media/');
+ let timedOut=false;const timer=setTimeout(()=>{timedOut=true;controller.abort();},upload?120000:15000);
  try{return await fetch(input,{...init,signal:controller.signal});}
  catch(error){if(timedOut)throw Error('SNOWLOG_TIMEOUT');throw error;}
  finally{clearTimeout(timer);upstream?.removeEventListener('abort',abort);}
