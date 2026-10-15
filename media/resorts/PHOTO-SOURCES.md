@@ -437,3 +437,7 @@ Verified: 2026-10-14
 ## zhuhai-snow-haven
 
 No reusable licensed photograph was verified after searches for 万雪汇, 萬雪匯, Zhuhai Snow Haven and official project sources. The official article is copyrighted and no reuse permission is stated. The UI keeps a labelled illustration with a direct link to official real photographs. Do not replace it with another resort or AI imagery. Official source: https://www.zhuhai-water.com.cn/xwzx/jtxw/content_71670
+
+## 珠海萬雪匯 — 用戶指定相片（2026-10-15）
+
+檔案：`zhuhai-snow-haven.png`（600 × 450）。由用戶在本對話提供並明確指定用於珠海場館；原檔直接使用，版面可能裁切。未提供攝影者、拍攝日期或可再授權的公開授權；不標示為 Creative Commons。
