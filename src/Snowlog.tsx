@@ -1,5 +1,7 @@
 
-import { useState, useEffect, useRef, useContext, lazy, Suspense, type ReactNode, type FormEvent } from "react";
+import { useState, useEffect, useRef, useContext, Suspense, type ReactNode, type FormEvent } from "react";
+import {recoverableView} from './RecoverableView';
+import {connectionMessage,validateSnapshot,withDeadline} from './connection';
 import { MountainSnow, LayoutDashboard, Route, BookOpen, Bookmark, TrendingUp, Plus, ArrowUpRight, ChevronRight, CalendarDays, MapPin, X, Check, RefreshCw, Settings, LogOut, Download, Copy, Users, LockKeyhole, Trash2, Pencil, Search, Flag, Snowflake, ExternalLink, ClipboardList } from "lucide-react";
 import type { UserIdentity } from "./identity";
 import { trapDialogFocus } from "./dialogFocus";
@@ -9,10 +11,10 @@ import {JournalGallery,JournalMediaEditor,MediaContext} from "./JournalMedia";
 import {readMedia} from "./journalMediaService";
 import {validateForm,markRequired,clearFieldError} from "./formUX";
 import "./formUX.css";
-const SkillProgress=lazy(()=>import("./SkillProgress"));
-const AssessmentEditor=lazy(()=>import("./SkillAssessment").then(m=>({default:m.AssessmentEditor})));
+const SkillProgress=recoverableView(()=>import("./SkillProgress"),'技巧');
+const AssessmentEditor=recoverableView(async()=>{const m=await import("./SkillAssessment");return {default:m.AssessmentEditor};},'技巧自評');
 import {assessmentDefinitions,readAssessment} from "./assessmentCatalog";
-const ResortExplorer=lazy(()=>import("./ResortExplorer"));
+const ResortExplorer=recoverableView(()=>import("./ResortExplorer"),'雪場探索');
 import { resorts, resortTripDraft, type Resort } from "./resorts";
 // Keep only the public resort choice through the auth component remount.
 let pendingResortId: string | null = null;
@@ -107,7 +109,7 @@ export default function Snowlog({user,loadData,saveData,onLogin,onLogout,resourc
   const loadSequence=useRef(0);
   const timer=useRef<ReturnType<typeof setTimeout>|null>(null);
   const notify=(v:string)=>{setToast(v);if(timer.current)clearTimeout(timer.current);timer.current=setTimeout(()=>setToast(""),8000);};
-  async function refresh(){const sequence=++loadSequence.current;setLoading(true);try{const d=await loadData();if(sequence===loadSequence.current){setData(d);setLoadError("");}return true;}catch(e){if(sequence!==loadSequence.current)return true;setLoadError(e instanceof Error?e.message:"未能讀取資料");return false;}finally{if(sequence===loadSequence.current)setLoading(false);}}
+  async function refresh(){const sequence=++loadSequence.current;setLoading(true);try{const d=validateSnapshot(await withDeadline(loadData()));if(sequence===loadSequence.current){setData(d);setLoadError("");}return true;}catch(e){if(sequence!==loadSequence.current)return true;setLoadError(connectionMessage(e));return false;}finally{if(sequence===loadSequence.current)setLoading(false);}}
   useEffect(()=>{if(user)void refresh();return ()=>{if(timer.current)clearTimeout(timer.current);};},[user?.userId]);
   useEffect(()=>{if(user&&resourceVersion)void refresh();},[resourceVersion]);
   useEffect(()=>{const onHash=()=>{const [v,...parts]=location.hash.slice(1).split("/");const id=parts.join("/");if(nav.some(n=>n.id===v)){setTab(v);setSelectedResort(v==="resorts"&&id?id:null);setSelectedSkill(v==="skills"&&id?id:null);}};onHash();window.addEventListener("hashchange",onHash);return()=>window.removeEventListener("hashchange",onHash);},[]);
