@@ -59,7 +59,7 @@ Supabase Auth → URL Configuration：
 
 ## 雪場探索（第一階段）
 
-公開目錄在 `src/resorts.ts`，目前 10 個雪場（日本 7 個、深圳、廣州及珠海室內真雪各 1 個），每筆包含穩定 ID、名稱、地區、場館類型、位置、交通規劃提示、官方／政府來源及核對日期。只收錄戶外雪場與室內真雪，不收錄模擬器、旱雪、溜冰場或純嬉雪設施。
+公開目錄在 `src/resorts.ts`，目前 28 個目的地（日本 25 個，包含 24 個獨立雪場及志賀高原滑雪區；深圳、廣州及珠海室內真雪各 1 個），每筆包含穩定 ID、名稱、地區、場館類型、位置、交通規劃提示、官方／政府來源及核對日期。只收錄戶外雪場與室內真雪，不收錄模擬器、旱雪、溜冰場或純嬉雪設施。
 
 雪場探索以日本及大灣區的輪廓地圖為入口，可點地區標記或地區列表，進入 `#resorts/region/<id>` 地區頁；全部目錄在 `#resorts/all`。桌面按目的地、地區、類型及名稱篩選；手機提供全屏篩選面板。不列出香港場館選項。雪場詳情可用 `#resorts/<id>` 直接連結，包含來源及地圖入口。場景插圖由 SVG 繪製，並非場館實景或雪道圖。
 
@@ -84,7 +84,7 @@ Supabase Auth → URL Configuration：
 
 ### Scheduled visual refresh, 2026-10-14
 
-Home headline uses self-hosted rounded Chinese; light digit-only Archivo face covers counts, dates, countdowns and progress. Sixteen original technique-specific SVG illustrations have readable captions. Nine resorts have verified historical Creative Commons photographs, with credits, source and license links on details and in public/media/resorts/PHOTO-SOURCES.md. Shenzhen image shows the venue exterior; Guangzhou image shows the indoor slope. Zhuhai keeps a labelled illustration and official photo link until a reusable photograph is supplied. No photo is presented as live snow conditions. No database or authentication changes.
+Home headline uses self-hosted rounded Chinese; light digit-only Archivo face covers counts, dates, countdowns and progress. Sixteen original technique-specific SVG illustrations have readable captions. All 28 destinations have real photographs: 27 use verified reusable photographs with credits, source and license links on details and in public/media/resorts/PHOTO-SOURCES.md; Zhuhai uses the user-provided photograph, without claiming a public reuse license. Shenzhen image shows the venue exterior; Guangzhou image shows the indoor slope. No photo is presented as live snow conditions. No database or authentication changes.
 
 ### Practice focus and technique history
 
