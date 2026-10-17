@@ -2,6 +2,8 @@
 
 單板滑雪追蹤工具，使用 GitHub Pages 發布前端、Supabase Auth 登入及 PostgreSQL 儲存資料。不含 AI 功能。
 
+開發分工、精簡驗證及既有 Grok 團隊交接，見 [AGENTS.md](./AGENTS.md) 與 [協作說明](./docs/grok-codex-collaboration.md)。Grok 僅參與開發審查，不是網站功能。
+
 ## 使用
 
 1. 建立個人帳戶並確認電郵，或使用已有帳戶登入。
