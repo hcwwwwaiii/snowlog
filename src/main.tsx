@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useState, useMemo, useRef } from "react";
-import { createClient, type SupabaseClient, type Session } from "@supabase/supabase-js";
+import type { SupabaseClient, Session } from "@supabase/supabase-js";
 import { X } from "lucide-react";
 import Snowlog from "./Snowlog";
 import AuthForm from "./AuthForm";
@@ -18,6 +18,18 @@ import "./resorts.css";
 import "./resortAtlas.css";
 import "./referenceTypography.css";
 import "./practice.css";
+
+let clientModule:Promise<typeof import('@supabase/supabase-js')>|undefined;
+function loadClientModule(){
+  if(!clientModule){
+    const request=import('@supabase/supabase-js');clientModule=request;
+    // Handle preload rejection immediately; the setup effect still shows the error.
+    void request.catch(()=>{if(clientModule===request)clientModule=undefined;});
+  }
+  return clientModule;
+}
+// Fetch in parallel with React's first render, without blocking the entry module.
+void loadClientModule();
 
 function friendly(message:string){
   if(/SNOWLOG_TIMEOUT|timeout|timed out|Failed to fetch|NetworkError|AbortError/i.test(message))return connectionMessage(message);
@@ -42,7 +54,11 @@ function App(){
   const [authMode,setAuthMode]=useState<string|null>(null),[notice,setNotice]=useState("");
   useEffect(()=>{let active=true;let unsubscribe:(()=>void)|undefined;setReady(false);setSetupError('');
     (async()=>{try{
-      const response=await boundedFetch(`${import.meta.env.BASE_URL}config.json`,{cache:"no-store"});if(!response.ok)throw Error("未能讀取連線設定，請重新整理。");
+      // Reuse the background SDK request while reading the connection settings.
+      const [response,{createClient}]=await withDeadline(Promise.all([
+        boundedFetch(`${import.meta.env.BASE_URL}config.json`,{cache:"no-store"}),
+        loadClientModule(),
+      ]));if(!response.ok)throw Error("未能讀取連線設定，請重新整理。");
       const config=await response.json() as {supabaseUrl:string;supabasePublishableKey:string};
       if(!config.supabaseUrl||!config.supabasePublishableKey?.startsWith("sb_publishable_"))throw Error("網站的 Supabase 連線設定尚未完成。");
       const c=createClient(config.supabaseUrl,config.supabasePublishableKey,{global:{fetch:boundedFetch}});const {data,error}=await withDeadline(c.auth.getSession());if(error)throw error;if(!active)return;
