@@ -1,0 +1,22 @@
+-- Private import schema. Apply staging-constraints.sql after this file.
+create schema snowlog_import;
+revoke all on schema snowlog_import from public;
+create table snowlog_import.profiles (id uuid primary key, name text not null, stance text not null, goal text not null, focus_skills text[] not null);
+create table snowlog_import.progress (id uuid primary key, user_id uuid not null, skill_id text not null, status integer not null, conditions text not null, notes text not null, next_step text not null, video text not null, feedback text not null, updated_at timestamptz not null, assessment jsonb not null);
+create table snowlog_import.trips (id uuid primary key, owner_id uuid not null, title text not null, resort text not null, start_date date not null, end_date date not null, accommodation text not null, transport text not null, itinerary text not null, todos jsonb not null, invite_code text not null, updated_at timestamptz not null);
+create table snowlog_import.memberships (id uuid primary key, trip_id uuid not null, user_id uuid not null, goal text not null);
+create table snowlog_import.journals (id uuid primary key, user_id uuid not null, date date not null, resort text not null, skill_ids jsonb not null, notes text not null, next_step text not null, snow text not null, mood text not null, video text not null, trip_id uuid, shared boolean not null, updated_at timestamptz not null, media jsonb not null);
+create table snowlog_import.resources (id uuid primary key, user_id uuid not null, title text not null, type text not null, url text not null, notes text not null, skill_id text not null, updated_at timestamptz not null);
+create table snowlog_import.progress_history (id uuid primary key, user_id uuid not null, skill_id text not null, previous_status integer, snapshot jsonb not null, recorded_at timestamptz not null, baseline boolean not null);
+create table snowlog_import.legacy_identity (legacy_user_id uuid primary key, verified_email text not null unique check (verified_email=lower(trim(verified_email)) and verified_email<>''));
+create table snowlog_import.media_objects (path text primary key, user_id uuid not null, mime text not null, bytes bigint not null check(bytes>0));
+alter table snowlog_import.profiles enable row level security;
+alter table snowlog_import.progress enable row level security;
+alter table snowlog_import.trips enable row level security;
+alter table snowlog_import.memberships enable row level security;
+alter table snowlog_import.journals enable row level security;
+alter table snowlog_import.resources enable row level security;
+alter table snowlog_import.progress_history enable row level security;
+alter table snowlog_import.legacy_identity enable row level security;
+alter table snowlog_import.media_objects enable row level security;
+revoke all on all tables in schema snowlog_import from public;

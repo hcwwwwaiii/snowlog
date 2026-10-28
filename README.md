@@ -1,6 +1,6 @@
 # 雪跡 Snowlog
 
-單板滑雪追蹤工具，使用 GitHub Pages 發布前端、Supabase Auth 登入及 PostgreSQL 儲存資料。不含 AI 功能。
+單板滑雪追蹤工具，使用 GitHub Pages 發布前端、Neon Auth 登入、Neon PostgreSQL 儲存資料及 Neon 私人 Object Storage。不含 AI 功能。
 
 開發分工、精簡驗證及既有 Grok 團隊交接，見 [AGENTS.md](./AGENTS.md) 與 [協作說明](./docs/grok-codex-collaboration.md)。Grok 僅參與開發審查，不是網站功能。
 
@@ -25,7 +25,7 @@ npm ci
 npm run dev
 ```
 
-開啟 http://127.0.0.1:5175。
+開啟 http://localhost:5175。本機影像測試使用 localhost:5189（已列入媒體 Function 的允許來源）。
 
 ```sh
 npm run build
@@ -34,28 +34,19 @@ npm run preview
 
 建置結果在 dist/，可直接部署到 GitHub Pages。路徑使用相對網址，可支援 /snowlog/ 子目錄。前端公開不會公開資料庫中的個人資料。
 
-## Supabase 設定
+## Neon 設定與舊帳戶
 
-連線設定在 public/config.json，只包含專案 URL 與 publishable key。可公開金鑰是前端使用的識別值，資料權限仍由登入權杖、RLS 及受限制的 RPC 控制。不要把 service_role、secret key 或資料庫密碼放入前端或 GitHub。
+正式後端為 Neon 專案 spring-haze-16331332 的 snowlog-release 分支。公開連線網址位於 src/NeonApp.tsx，可透過 .env.example 中的變數覆寫；不得把資料庫連線密碼、SMTP 密碼或 S3 憑證放進前端。public/config.json 只標示目前後端。
 
-正式專案：snowlog（lobgvyprscckitfyowwo）。
+舊用戶以相同電郵重新註冊、設定新密碼並完成電郵驗證後，伺服器才會把 Neon 身分與舊 UUID 綁定。其他同伴可稍後註冊；不會轉移 Supabase 密碼，也不會按前端提供的電郵授權。
 
-初始 migration 位於 supabase/migrations/，已套用到這個專案；不要重複套用。後續修改須新增 migration。
+資料表保存在不公開的 snowlog_import schema，啟用 RLS；只開放已登入用戶呼叫 snowlog_migration_snapshot / snowlog_migration_save。RPC 核對已驗證、未停權的 Neon 身分，再檢查資料擁有人與同行權限。收藏由所有登入用戶共用，可新增及刪除，編輯仍限擁有人。
 
-Supabase Auth → URL Configuration：
+neon/ 保存已部署的 schema、權限、RPC、舊身分綁定及媒體 Function 原始碼，並非可直接重複執行的部署腳本。私人資料及身分對應清單不放入 GitHub。legacy-identity.test.sql 僅供隔離測試分支使用。
 
-- Site URL：https://hcwwwwaiii.github.io/snowlog/
-- Redirect URLs：https://hcwwwwaiii.github.io/snowlog/、http://127.0.0.1:5175/
+相片／影片保存在私人 snowlog-journal-media bucket，由 snowlogmedia Function 核對 JWT 及日誌／同行權限後簽發短效連結。日誌移除附件後，私人檔案暫時保留，避免遷移期間不可逆的檔案損失；未連結的檔案會佔儲存空間。收藏每 30 秒更新，取代舊 Realtime 訂閱。
 
-在邀請同伴註冊前，確認 Email provider 已啟用，以及電郵服務可寄送確認信和重設密碼信。Supabase 預設寄信服务可能限制收件人；對外註冊請依 Supabase 文件設定自己的 SMTP。
-
-## 權限設計
-
-六張表全部啟用 RLS。authenticated 角色只有受 RLS 限制的 SELECT，沒有直接修改表格的權限。snowlog_snapshot 和 snowlog_save 兩個公開 RPC 採用 SECURITY INVOKER，呼叫未暴露 schema 的內部實作，並逐項驗證 auth.uid()、資料所有權、行程成員和建立者資格。
-
-個人技巧卡、收藏及雪季目標不會分享給同伴。行程只顯示成員名稱、站姿及這趟旅程的目標。進度由本人更新，不會依滑雪天數自動評級。
-
-影片與照片使用外部連結；個人收藏與公共雪場目錄分開，更新請以官方公告為準。
+Neon Auth 已配置 Gmail SMTP、電郵 OTP 及正式 GitHub Pages origin。舊 supabase/ migration 僅作歷史備查，網站執行時不再連接 Supabase。SDK 的 SupabaseAuthAdapter 是 Neon 的相容介面，登入實際由 Neon Auth 處理。
 
 ## 雪場探索（第一階段）
 
