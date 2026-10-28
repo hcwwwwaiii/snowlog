@@ -102,7 +102,9 @@ export default function NeonApp() {
     }};
     try {
       if (authMode === 'login') {
-        const {error} = await neon.auth.signInWithPassword({email, password}); if (error) throw error;
+        const {data, error} = await withDeadline(neon.auth.signInWithPassword({email, password})); if (error) throw error;
+        if (!data.session) throw Error('登入未完成，請重試。');
+        setSession(data.session as Session);
         setLoginOpen(false);
       } else if (authMode === 'signup') {
         const {error} = await auth.signUp.email({email, password, name:String(fields.get('name') || '').trim()}); if (error) throw error;
@@ -120,6 +122,15 @@ export default function NeonApp() {
       }
     } catch (cause) {setError(authMessage(cause));} finally {setBusy(false);}
   }
+  async function logout() {
+    try {
+      const {error} = await withDeadline(neon.auth.signOut());
+      if (error) throw error;
+      setSession(null);
+      setOwnerId(null);
+      setIdentityError('');
+    } catch (cause) {setIdentityError(authMessage(cause));}
+  }
   const user = session && ownerId ? {userId: ownerId, email: session.user.email || '', fullName: null, displayName: session.user.email?.split('@')[0] || '滑雪同伴'} : null;
   async function loadData() {
     if (!session) return blankData;
@@ -133,9 +144,9 @@ export default function NeonApp() {
   }
   if (!ready) return <div className="connection-status" role="status">正在準備連線…</div>;
   if (setupError) return <div className="empty" role="alert"><h3>未能連接登入服務</h3><p>{setupError}</p><button className="secondary" onClick={() => location.reload()}>重試</button></div>;
-  if (session && !ownerId) return <div role="status">{identityError || '正在確認帳戶資料…'}{identityError && <><button onClick={() => setIdentityAttempt(n => n + 1)}>重試</button><button onClick={() => void neon.auth.signOut()}>登出</button></>}</div>;
+  if (session && !ownerId) return <div role="status">{identityError || '正在確認帳戶資料…'}{identityError && <><button onClick={() => setIdentityAttempt(n => n + 1)}>重試</button><button onClick={() => void logout()}>登出</button></>}</div>;
   return <>
-    <MediaContext.Provider value={media}><Snowlog key={user?.userId || 'guest'} user={user} loadData={loadData} saveData={saveData} resourceVersion={version} resourceSync="每 30 秒更新" onLogin={() => {setError(''); setMessage(''); setAuthMode('login'); setLoginOpen(true);}} onLogout={() => {if (ownerId) for (const key of Object.keys(sessionStorage)) if (key.startsWith('snowlog:draft:'+ownerId+':')) sessionStorage.removeItem(key); void neon.auth.signOut();}}/></MediaContext.Provider>
+    <MediaContext.Provider value={media}><Snowlog key={user?.userId || 'guest'} user={user} loadData={loadData} saveData={saveData} resourceVersion={version} resourceSync="每 30 秒更新" onLogin={() => {setError(''); setMessage(''); setAuthMode('login'); setLoginOpen(true);}} onLogout={() => {if (ownerId) for (const key of Object.keys(sessionStorage)) if (key.startsWith('snowlog:draft:'+ownerId+':')) sessionStorage.removeItem(key); void logout();}}/></MediaContext.Provider>
     {loginOpen && <dialog ref={dialog} className="auth-overlay" aria-labelledby="neon-auth-title" onKeyDown={trapDialogFocus} onCancel={event => {event.preventDefault(); if (!busy) setLoginOpen(false);}} onClick={event => {if (event.target === dialog.current && !busy) setLoginOpen(false);}}><section className="auth-card"><h2 id="neon-auth-title">{authMode === 'signup' ? '建立帳戶' : authMode === 'verify' ? '驗證電郵' : authMode === 'reset' || authMode === 'reset-code' ? '重設密碼' : '登入 Snowlog'}</h2><p className="auth-intro muted">原有用戶請以相同電郵建立帳戶、設定新密碼並完成驗證，即可取回舊紀錄。</p><form noValidate onSubmit={login} onInput={event => {clearFieldError(event.target); setError('');}}>
       {authMode === 'signup' && <label className="field">顯示名稱（必填）<input name="name" required maxLength={120}/></label>}
       {authMode !== 'verify' && authMode !== 'reset-code' ? <label className="field">電郵（必填）<input name="email" type="email" required defaultValue={authEmail} autoComplete="email"/></label> : <p>請輸入寄往 {authEmail} 的驗證碼。</p>}
