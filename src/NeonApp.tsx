@@ -39,9 +39,9 @@ function mediaService(): MediaService {
     return response.json();
   }
   return {
-    async upload(file) {
+    async upload(file, purpose) {
       const error = validateMediaFiles([file], []); if (error) throw Error(error);
-      return {...await request('upload', file, file.type), name:file.name.slice(0,200) || '練習影像'};
+      return {...await request(purpose==='gear'?'uploadgear':'upload', file, file.type), name:file.name.slice(0,200) || '練習影像'};
     },
     async sign(paths) {if (!paths.length) return {}; return request('sign', JSON.stringify({paths}), 'application/json');},
     async remove(paths) {if (paths.length) await request('remove', JSON.stringify({paths}), 'application/json');},
@@ -134,12 +134,21 @@ export default function NeonApp() {
   const user = session && ownerId ? {userId: ownerId, email: session.user.email || '', fullName: null, displayName: session.user.email?.split('@')[0] || '滑雪同伴'} : null;
   async function loadData() {
     if (!session) return blankData;
-    const {data, error} = await withDeadline(neon.rpc('snowlog_migration_snapshot'));
+    const [main,equipment]=await Promise.allSettled([withDeadline(neon.rpc('snowlog_migration_snapshot')),withDeadline(neon.rpc('snowlog_gear_snapshot'))]);
+    if(main.status==='rejected')throw main.reason;
+    const {data,error}=main.value;
     if (error) throw Error(error.message);
-    return validateSnapshot(data);
+    const snapshot=validateSnapshot(data);
+    try {
+      if(equipment.status==='rejected')throw equipment.reason;
+      const gear=equipment.value;
+      if(gear.error)throw Error(gear.error.message);
+      if(!Array.isArray(gear.data)||gear.data.some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw Error('裝備資料未完整載入，請重試。');
+      return {...snapshot,gear:gear.data};
+    } catch(cause) {return {...snapshot,gearError:connectionMessage(cause)};}
   }
   async function saveData(action: string, data: Row) {
-    const result = await withDeadline(neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
+    const result = await withDeadline(action==='gear'?neon.rpc('snowlog_gear_save',{p_data:data}):neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
     if (result.error) throw Error(result.error.message);
   }
   if (!ready) return <div className="connection-status" role="status">正在準備連線…</div>;

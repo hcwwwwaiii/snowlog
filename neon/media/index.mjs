@@ -11,7 +11,7 @@ const jwks = createRemoteJWKSet(new URL(process.env.NEON_AUTH_JWKS_URL));
 const issuer = new URL(process.env.NEON_AUTH_BASE_URL).origin;
 const bucket = 'snowlog-journal-media';
 const extensions = {'image/jpeg':'jpg','image/png':'png','image/webp':'webp','video/mp4':'mp4','video/webm':'webm','video/quicktime':'mov'};
-const pathPattern = /^[a-f0-9-]{36}\/[a-f0-9-]{36}\.(jpg|png|webp|mp4|webm|mov)$/;
+const pathPattern = /^[a-f0-9-]{36}\/(?:gear\/)?[a-f0-9-]{36}\.(jpg|png|webp|mp4|webm|mov)$/;
 const allowedOrigins = new Set(['https://hcwwwwaiii.github.io', 'http://127.0.0.1:5189', 'http://localhost:5189']);
 
 function cors(request) {
@@ -46,10 +46,10 @@ async function boundedBody(request, limit) {
 async function authorizedPath(owner, path) {
   if (!pathPattern.test(path)) return false;
   const result = await pool.query(`select 1 from snowlog_import.media_objects m where m.path=$1 and (
-    m.user_id=$2 or exists (select 1 from snowlog_import.journals j
+    m.user_id=$2 or (m.path not like '%/gear/%' and exists (select 1 from snowlog_import.journals j
       where j.shared and j.media @> jsonb_build_array(jsonb_build_object('path',m.path))
       and exists(select 1 from snowlog_import.memberships own where own.trip_id=j.trip_id and own.user_id=$2)
-      and exists(select 1 from snowlog_import.memberships author where author.trip_id=j.trip_id and author.user_id=j.user_id)))`, [path, owner]);
+      and exists(select 1 from snowlog_import.memberships author where author.trip_id=j.trip_id and author.user_id=j.user_id))))`, [path, owner]);
   return result.rowCount > 0;
 }
 export default {
@@ -62,12 +62,13 @@ export default {
     try {owner = await ownerFor(auth.slice(7));} catch {return reply(request,401,{error:'請先驗證電郵並登入'});}
     try {
       const action = new URL(request.url).pathname.split('/').filter(Boolean).pop();
-      if (action === 'upload') {
+      if (action === 'upload' || action === 'uploadgear') {
         const type = (request.headers.get('content-type') || '').toLowerCase();
         if (!Object.hasOwn(extensions,type)) return reply(request,400,{error:'不支援的影像格式'});
+        if (action==='uploadgear' && !type.startsWith('image/')) return reply(request,400,{error:'裝備只接受照片'});
         const kind = type.startsWith('image/') ? 'image' : 'video';
         const bytes = await boundedBody(request, (kind === 'image' ? 10 : 50) * 1024 * 1024);
-        const id = randomUUID(), path = `${owner}/${id}.${extensions[type]}`;
+        const id = randomUUID(), path = `${owner}/${action==='uploadgear'?'gear/':''}${id}.${extensions[type]}`;
         await s3.send(new PutObjectCommand({Bucket:bucket,Key:path,Body:bytes,ContentType:type}));
         try {await pool.query('insert into snowlog_import.media_objects(path,user_id,mime,bytes) values($1,$2,$3,$4)',[path,owner,type,bytes.length]);}
         catch (error) {await s3.send(new DeleteObjectCommand({Bucket:bucket,Key:path})).catch(()=>{}); throw error;}
@@ -88,7 +89,7 @@ export default {
           for (const path of paths.sort()) {
             const row = await db.query('select path from snowlog_import.media_objects where path=$1 and user_id=$2 for update',[path,owner]);
             if (!row.rowCount) throw Error('not owner');
-            const used = await db.query('select 1 from snowlog_import.journals where media @> jsonb_build_array(jsonb_build_object(\'path\',$1::text)) limit 1',[path]);
+            const used = await db.query('select 1 from snowlog_import.journals where media @> jsonb_build_array(jsonb_build_object(\'path\',$1::text)) union all select 1 from snowlog_import.gear where photos @> jsonb_build_array(jsonb_build_object(\'path\',$1::text)) limit 1',[path]);
             if (used.rowCount) throw Error('still referenced');
           }
           for (const path of paths) {

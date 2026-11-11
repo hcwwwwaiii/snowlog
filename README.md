@@ -98,3 +98,11 @@ Collections are now visible to every authenticated account. Anyone can add and d
 Each journal can keep six uploaded photos/videos, at most 100 MiB in total. JPEG/PNG/WebP images are limited to 10 MiB; MP4/WebM/MOV videos to 50 MiB. Uploads use unique account-scoped paths in the private snowlog-journal-media bucket. The server validates file metadata and ownership when linking journal media. Sharing follows the parent journal and requires actual companion membership. Viewer URLs expire after ten minutes and are refreshed while mounted; already-issued links may remain usable until expiry after unsharing. Media does not enter the public repository. Uploads persist with the account-scoped local draft until save/discard. Object cleanup after unlink, discard and journal deletion uses the Storage API and is best-effort; there is no server-side orphan-file lifecycle job in this version. Closing a whole browser tab may leave an unattached private upload until cleaned up. Existing external attachment links remain supported.
 
 Season insights are under 我的進度 → 查看雪季成長 and the home season heading. A season runs July–June, with unique owned journal dates and future dates excluded. Skill spans use actual dated journals/progress observations and the first recorded stable transition. A stable baseline cannot establish a mastery date; unknown spans remain explicitly unknown. Counts describe retained records, not practice hours or certification. Six milestones are derived from retained journals and self-assessments.
+
+## 我的裝備
+
+首頁卡片及頭像選單可進入 `#gear`。私人裝備清單包含分類、名稱、品牌／型號、尺寸、購入日期、備註及使用中／備用／已退役狀態；每件可加一張 JPEG、PNG 或 WebP 照片（10 MB）。表單沿用中文驗證和分頁草稿，編輯時用 `updated_at` 防止舊視窗覆寫。
+
+Neon 遷移在 `neon/gear.sql`。`snowlog_import.gear` 不開放用戶直接讀寫，只有已驗證帳戶可呼叫兩個 RPC，伺服器自行解析擁有者並限制讀寫本人資料。`neon/gear.test.sql` 僅供獨立分支執行：在回滾的子交易中注入測試身分，檢查新增、編輯、跨帳戶／訪客拒絕、照片及衝突；不替代真實 JWT 端到端測試。
+
+裝備照片使用私人 bucket 的 `<owner>/gear/` 路徑；照片簽名只允許擁有者，既有日誌驗證不接受此路徑。`neon/media/index.mjs` 的 `uploadgear` 僅接受圖片，已被裝備引用的照片不能透過草稿清理操作刪除。沿用既有影像保留方式，更換已儲存照片不會永久刪除舊檔。主資料與裝備並行載入；裝備失敗只在裝備區顯示重試，且暫停不完整的 JSON 匯出。

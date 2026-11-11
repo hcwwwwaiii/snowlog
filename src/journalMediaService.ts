@@ -1,6 +1,6 @@
 import type {SupabaseClient} from '@supabase/supabase-js';
 export type JournalMedia={id:string;path:string;kind:'image'|'video';type:string;size:number;name:string};
-export type MediaService={upload:(file:File)=>Promise<JournalMedia>;sign:(paths:string[])=>Promise<Record<string,string>>;remove:(paths:string[])=>Promise<void>};
+export type MediaService={upload:(file:File,purpose?:'gear')=>Promise<JournalMedia>;sign:(paths:string[])=>Promise<Record<string,string>>;remove:(paths:string[])=>Promise<void>};
 export const MEDIA_BUCKET='snowlog-journal-media';
 const extensions:Record<string,string>={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','video/mp4':'mp4','video/webm':'webm','video/quicktime':'mov'};
 export const readMedia=(value:unknown):JournalMedia[]=>Array.isArray(value)?value.filter(m=>m&&typeof m.path==='string'&&typeof m.id==='string'&&typeof m.name==='string'&&extensions[m.type]&&['image','video'].includes(m.kind)&&Number.isFinite(m.size)).slice(0,6):[];
