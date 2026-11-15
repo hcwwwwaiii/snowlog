@@ -1,0 +1,16 @@
+const fs=require('node:fs'),ts=require('typescript'),assert=require('node:assert/strict');
+const helpers={};new Function('exports',ts.transpileModule(fs.readFileSync('src/gearSetup.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(helpers);
+const data={gear:[{id:'board',status:'使用中'}],gearSets:[{id:'set',name:'Default',gear_ids:['board'],setup:{frontAngle:15},is_default:true}],journalGear:[]};
+assert.equal(helpers.initialJournalGear(data,{}).setId,'set');
+assert.equal(helpers.initialJournalGear({...data,gear:[{id:'board',status:'已退役'}]},{}).mode,'clear');
+assert.equal(helpers.initialJournalGear(data,{id:'old-journal'}).mode,'clear');
+assert.equal(helpers.initialJournalGear({...data,gearError:'network'},{}).mode,'keep');
+const snapshot={items:[{id:'board',name:'Old name'}],setup:{frontAngle:12},setId:'old-set'};
+const choice=helpers.initialJournalGear({...data,journalGear:[{journal_id:'journal',snapshot}]},{id:'journal'});
+assert.equal(choice.mode,'keep');assert.equal(choice.setup.frontAngle,12);assert.equal(choice.setId,'old-set');
+const draft={mode:'set',gearIds:['board'],setId:null,setup:{backAngle:-9}};assert.deepEqual(helpers.initialJournalGear(data,{},draft),draft);
+const journals=[{id:'a',date:'2026-11-14'},{id:'b',date:'2026-11-14'},{id:'c',date:'2026-11-15'},{id:'future',date:'2026-11-16'}];
+const usage=journals.map(j=>({journal_id:j.id,snapshot}));const history=helpers.gearHistory('board',usage,journals,'2026-11-15');
+assert.equal(history.days,2);assert.equal(history.entries.length,4);assert.equal(history.entries[0].journal.id,'future');
+assert.equal(helpers.gearHistory('other',usage,journals,'2026-11-15').days,0);
+console.log('PASS: default/retired selection, historical preservation, safe load failure, draft and usage-day deduplication.');

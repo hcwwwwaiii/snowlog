@@ -20,6 +20,6 @@ export function validateSnapshot(value:unknown):Snapshot{
     !(['progress','journals','trips','members','sharedJournals','resources'] as const).every(key=>Array.isArray(snapshot[key])&&snapshot[key].every(row=>row&&typeof row==='object'))||
     (snapshot.progressHistory!==undefined&&!Array.isArray(snapshot.progressHistory))||
     (snapshot.practices!==undefined&&(!Array.isArray(snapshot.practices)||snapshot.practices.some(row=>!row||typeof row!=='object'||Array.isArray(row))))||
-    (snapshot.gear!==undefined&&(!Array.isArray(snapshot.gear)||snapshot.gear.some(row=>!row||typeof row!=='object'||Array.isArray(row)))))throw Error('資料未完整載入，請重新整理資料。');
+    (["gear","gearSets","journalGear"] as const).some(key=>snapshot[key]!==undefined&&(!Array.isArray(snapshot[key])||snapshot[key]!.some(row=>!row||typeof row!=='object'||Array.isArray(row)))))throw Error('資料未完整載入，請重新整理資料。');
   return snapshot;
 }

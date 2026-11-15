@@ -134,7 +134,7 @@ export default function NeonApp() {
   const user = session && ownerId ? {userId: ownerId, email: session.user.email || '', fullName: null, displayName: session.user.email?.split('@')[0] || '滑雪同伴'} : null;
   async function loadData() {
     if (!session) return blankData;
-    const [main,equipment]=await Promise.allSettled([withDeadline(neon.rpc('snowlog_migration_snapshot')),withDeadline(neon.rpc('snowlog_gear_snapshot'))]);
+    const [main,equipment]=await Promise.allSettled([withDeadline(neon.rpc('snowlog_migration_snapshot')),withDeadline(neon.rpc('snowlog_equipment_snapshot'))]);
     if(main.status==='rejected')throw main.reason;
     const {data,error}=main.value;
     if (error) throw Error(error.message);
@@ -143,13 +143,13 @@ export default function NeonApp() {
       if(equipment.status==='rejected')throw equipment.reason;
       const gear=equipment.value;
       if(gear.error)throw Error(gear.error.message);
-      if(!Array.isArray(gear.data)||gear.data.some(row=>!row||typeof row!=='object'||Array.isArray(row)))throw Error('裝備資料未完整載入，請重試。');
-      return {...snapshot,gear:gear.data};
+      if(!gear.data||!['gear','gearSets','journalGear'].every(key=>Array.isArray((gear.data as Row)[key])&&(gear.data as Row)[key].every((row:Row)=>row&&typeof row==='object'&&!Array.isArray(row))))throw Error('裝備資料未完整載入，請重試。');
+      return {...snapshot,...gear.data};
     } catch(cause) {return {...snapshot,gearError:connectionMessage(cause)};}
   }
   async function saveData(action: string, data: Row) {
-    const {practices,...journal}=data;
-    const result = await withDeadline(action==='journal'?neon.rpc('snowlog_journal_practice_save',{p_data:journal,p_practices:practices||[]}):action==='gear'?neon.rpc('snowlog_gear_save',{p_data:data}):neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
+    const {practices,gearUsage,...journal}=data;
+    const result = await withDeadline(action==='journal'?neon.rpc('snowlog_journal_gear_save',{p_data:journal,p_practices:practices||[],p_gear:gearUsage||{mode:'keep'}}):action==='gearSet'?neon.rpc('snowlog_gear_set_save',{p_data:data}):action==='gear'?neon.rpc('snowlog_gear_save',{p_data:data}):neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
     if (result.error) throw Error(result.error.message);
   }
   if (!ready) return <div className="connection-status" role="status">正在準備連線…</div>;
