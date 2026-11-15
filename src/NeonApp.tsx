@@ -148,7 +148,8 @@ export default function NeonApp() {
     } catch(cause) {return {...snapshot,gearError:connectionMessage(cause)};}
   }
   async function saveData(action: string, data: Row) {
-    const result = await withDeadline(action==='gear'?neon.rpc('snowlog_gear_save',{p_data:data}):neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
+    const {practices,...journal}=data;
+    const result = await withDeadline(action==='journal'?neon.rpc('snowlog_journal_practice_save',{p_data:journal,p_practices:practices||[]}):action==='gear'?neon.rpc('snowlog_gear_save',{p_data:data}):neon.rpc('snowlog_migration_save', {p_action: action, p_data: data}));
     if (result.error) throw Error(result.error.message);
   }
   if (!ready) return <div className="connection-status" role="status">正在準備連線…</div>;
